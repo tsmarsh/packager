@@ -2,8 +2,8 @@
   (:require [schema.core :as s]))
 
 
-(def Box [(s/one Double "width")
-             (s/one Double "height")])
+(def Box [(s/one Number "width")
+             (s/one Number "height")])
 
 (def Shelf {:boxes [Box]
             :dimensions Box})
@@ -20,16 +20,17 @@
 
 (s/defn remaining :- Box
   [{boxes :boxes
-    dims :dimensions} shelf :- Shelf]
+    [sw sh] :dimensions :as shelf} :- Shelf]
   (let [used_width (apply + (map first boxes))]
-    [(- (first dims) used_width) (second dims)]))
+    [(- sw used_width) sh]))
 
 (s/defn best-shelf-pred
   [[_ h :as box] :- Box
    index :- s/Int
-   [_ shelf_height :as shelf] :- Shelf]
-  (when (and (> (second (:dimensions shelf_height)) h)
-             (fit (remaining shelf) box)) index))
+   shelf :- Shelf]
+  (when (and (>= (second (:dimensions shelf)) h)
+             (fit (remaining shelf) box))
+    index))
  
 (s/defn best-shelf :- (s/maybe  s/Int)
   [shelves :- [Shelf]
@@ -38,12 +39,12 @@
 
 (s/defn add :- Container
   [{shelves :shelves :as c} :- Container
-   box :- Box]
+   [w h :as box] :- Box]
   (let [bs (best-shelf shelves box)]
     (if bs
-      (let [shelf (nth shelves bs)
-            shelf' (conj shelf box)]
+      (let [{boxen :boxes :as shelf} (nth shelves bs)
+            shelf' (assoc shelf :boxes (conj boxen box))]
         (assoc c :shelves (assoc shelves bs shelf')))
       (assoc c :shelves (conj shelves {:boxes [box]
                                        :dimensions [(first (:dimensions c))
-                                                    (second box)]})))))
+                                                    h]})))))
