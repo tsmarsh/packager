@@ -1,6 +1,6 @@
-(ns packager.core-test
+(ns packager.box-test
   (:require [clojure.test :refer :all]
-            [packager.core :as c]
+            [packager.box :as c]
             [schema.test :as st]))
 
 (use-fixtures :once st/validate-schemas)
@@ -13,6 +13,13 @@
   (testing "doesn't fit"
     (let [machine [19.0 20.0]]
       (is (not (c/fit machine [20.0 20.0]))))))
+
+(ns packager.shelf-test
+  (:require [clojure.test :refer :all]
+            [packager.shelf :as c]
+            [schema.test :as st]))
+
+(use-fixtures :once st/validate-schemas)
 
 (deftest remaining
   (testing "calculates the space remaining on a shelf"
@@ -39,6 +46,12 @@
     (is (= 0 (c/best-shelf [{:boxes  [[20.0 20.0]]
                              :dimensions [41.0 20.0]}] [20.0 20.0])))))
 
+(ns packager.core-test
+  (:require [clojure.test :refer :all]
+            [packager.container :as c]
+            [schema.test :as st]))
+
+(use-fixtures :once st/validate-schemas)
 
 (deftest add
   (testing "an empty container gets a shelf on which to place a box"
