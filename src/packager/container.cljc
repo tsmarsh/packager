@@ -9,7 +9,7 @@
 (s/defn remaining :- b/Box
   [{shelves :shelves
     [cw ch] :dimensions :as container} :- Container]
-  (let [used_height (apply + (map (juxt :dimensions second) shelves))]
+  (let [used_height (apply + (map (comp second :dimensions) shelves))]
     [cw (- ch used_height)]))
 
 
@@ -21,6 +21,8 @@
       (let [{boxen :boxes :as shelf} (nth shelves bs)
             shelf' (assoc shelf :boxes (conj boxen box))]
         (assoc c :shelves (assoc shelves bs shelf')))
-      (assoc c :shelves (conj shelves {:boxes [box]
-                                       :dimensions [(first (:dimensions c))
-                                                    h]})))))
+      (if (b/fit (remaining c) box) 
+        (assoc c :shelves (conj shelves {:boxes [box]
+                                         :dimensions [(first (:dimensions c))
+                                                      h]}))
+        c))))
