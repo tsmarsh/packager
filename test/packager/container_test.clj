@@ -66,6 +66,10 @@
         box [10.0 10.0]
         c' (reduce (fn [c _] (c/add c box)) c (range 9))]
     (testing "we get a perfect fit if possible" 
-      (is (= [0.0 0.0] (c/remaining c'))))))
+      (is (= [0.0 0.0] (c/remaining c'))))
+    (testing "with no rejected boxes"
+      (is (empty? (:rejected c'))))
+    (testing "there should be three shelves"
+      (is (= 3 (count (:shelves c')))))))
 
 
