@@ -10,8 +10,10 @@
 (s/defn remaining :- b/Box
   [{shelves :shelves
     [cw ch] :dimensions :as container} :- Container]
-  (let [used_height (apply + (map (comp second :dimensions) shelves))]
-    [cw (- ch used_height)]))
+  (let [used_height (apply + (map (comp second :dimensions) shelves))
+        remaining-height (- ch used_height)
+        remaining-width (if (= 0.0 remaining-height) 0.0 cw)]
+    [remaining-width remaining-height]))
 
 
 (s/defn add :- Container

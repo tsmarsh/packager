@@ -43,7 +43,7 @@
                     :dimensions [20.0 40.0]}]
       (is (= expected (c/add (c/add c box) box)))))
 
-  (testing "that boxes that are two big are ignored"
+  (testing "that boxes that are too big are rejected"
     (let [c {:shelves []
              :dimensions [10.0 10.0]}
           box [9.0 9.0]
@@ -59,3 +59,13 @@
                           (c/add box)
                           (c/add big-box)
                           (c/add small-box)))))))
+
+(deftest efficiency
+  (let [c {:shelves []
+           :dimensions [30.0 30.0]}
+        box [10.0 10.0]
+        c' (reduce (fn [c _] (c/add c box)) c (range 9))]
+    (testing "we get a perfect fit if possible" 
+      (is (= [0.0 0.0] (c/remaining c'))))))
+
+
