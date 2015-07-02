@@ -4,7 +4,8 @@
             [schema.core :as s]))
 
 (def Container {:shelves [sh/Shelf]
-                :dimensions b/Box})
+                :dimensions b/Box
+                (s/optional-key :rejected) [b/Box]})
 
 (s/defn remaining :- b/Box
   [{shelves :shelves
@@ -25,4 +26,4 @@
         (assoc c :shelves (conj shelves {:boxes [box]
                                          :dimensions [(first (:dimensions c))
                                                       h]}))
-        c))))
+        (assoc c :rejected (conj (:rejected c) box))))))

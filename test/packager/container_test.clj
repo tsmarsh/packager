@@ -52,7 +52,8 @@
           
           expected {:shelves [{:boxes [box, small-box] 
                                :dimensions [10.0 9.0]}]
-                    :dimensions [10.0 10.0]}]
+                    :dimensions [10.0 10.0]
+                    :rejected   [big-box]}]
 
       (is (= expected (-> c
                           (c/add box)
