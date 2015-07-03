@@ -5,16 +5,33 @@
 
 (def Distribution {b/Box [b/Box]})
 
-(s/defn collect :- [[Distribution]]
+(s/defn process-boxes :- Distribution
+  [boxes :- [b/Box]
+   h :- Number
+   d :- Distribution]
+  (if (seq boxes)
+    (loop [[[bw _ :as b] & bs] boxes
+           w 0.0
+           d d]
+      (let [d' (if (contains? d b)
+                 (merge-with conj d {b [w h]})
+                 (assoc d b [[w h]]))]
+        (if (seq? bs)
+          (recur bs (+ w bw) d')
+          d')))
+    d))
+
+(s/defn collect :- Distribution
   [{shelves :shelves} :- c/Container]
-  (for [{boxes :boxes :as shelf} shelves]
-    (for [box boxes]
-      {box [[0.0 0.0]]})))
+  (loop [[{[_ sh] :dimensions
+           boxes :boxes} & ss] shelves
+         h 0.0
+         d {}]
+    (let [pb (process-boxes boxes h d)]
+      (if (seq ss)
+        (recur ss (+ h sh) pb)
+        pb))))
 
 (s/defn distribute :- Distribution
   [c :- c/Container]
-  (let [locations (collect c)]
-    (or (->> locations
-             flatten
-             (apply merge-with vector))
-        {})))
+  (collect c))
