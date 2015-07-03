@@ -13,10 +13,10 @@
 (deftest shelf-selection
   (testing "returns nil if no suitable shelf can be found"
     (is (nil? (c/best-shelf [] [20.0 20.0]))))
-  
+
   (testing "returns the index of the shelf that is the best fit"
     (is (= 0 (c/best-shelf [{:boxes  [] :dimensions [21.0 21.0]}] [20.0 20.0]))))
-  
+
   (testing "returns nil if the shelf that is the best fit is full"
     (is (nil? (c/best-shelf [{:boxes  [[20.0 20.0]] :dimensions [21.0 21.0]}] [20.0 20.0]))))
 
