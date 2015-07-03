@@ -1,4 +1,4 @@
-(defproject packager "0.1.0-SNAPSHOT"
+(defproject packager "0.1.0"
   :description "FIXME: write description"
   :url "http://tailoredshapes.com"
   :license {:name "Eclipse Public License"
