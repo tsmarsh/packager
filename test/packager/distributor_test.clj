@@ -15,6 +15,15 @@
     (let [c {:shelves [{:boxes [[10.0 10.0]]
                         :dimensions [10.0 10.0]}]
              :dimensions [10.0 10.0]}]
-      (is (= {[10.0 10.0] [[0.0 0.0]]} (d/distribute c))))))
+      (is (= {[10.0 10.0] [[0.0 0.0]]} (d/distribute c)))))
+
+  (testing "a container with N identical boxes"
+    (let [b [10.0 10.0]
+          c {:shelves [{:boxes [b b b]
+                        :dimensions [30.0 10.0]}]
+             :dimensions [30.0 10.0]}]
+      (is (= {[10.0 10.0] [[0.0 0.0]
+                           [10.0 0.0]
+                           [20.0 0.0]]} (d/distribute c))))))
 
 
