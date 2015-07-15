@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tsmarsh/packager.svg?branch=master)](https://travis-ci.org/tsmarsh/packager) 
+
 # packager
 
 A Clojure library designed to ... well, that part is up to you.
