@@ -1,8 +1,7 @@
-(defproject packager "0.1.0"
-  :description "FIXME: write description"
+(defproject tsmarsh/packager "0.1.0"
+  :description "Clojure library to pack 2D shapes into a 2D container"
   :url "http://tailoredshapes.com"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :license {:name "BSD 2 Clause"}
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [prismatic/schema "0.4.3"]]
   :profiles {:dev
