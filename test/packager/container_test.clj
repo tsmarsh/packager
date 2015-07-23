@@ -58,7 +58,23 @@
       (is (= expected (-> c
                           (c/add box)
                           (c/add big-box)
-                          (c/add small-box)))))))
+                          (c/add small-box))))))
+
+  (testing "boxes that can fit do"
+    (let [c {:shelves []
+             :dimensions [10.0 10.0]}
+          box [8.0 8.0]
+          small-box [1.0 1.0]
+          medium-box [2.0 2.0]
+          expected {:shelves [{:boxes [box small-box]
+                               :dimensions [10.0 8.0]}
+                              {:boxes [medium-box]
+                               :dimensions [10.0 2.0]}]
+                    :dimensions [10.0 10.0]}]
+      (is (= expected (-> c
+                          (c/add box)
+                          (c/add small-box)
+                          (c/add medium-box)))))))
 
 (deftest efficiency
   (let [c {:shelves []
