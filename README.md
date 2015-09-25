@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/tsmarsh/packager.svg?branch=master)](https://travis-ci.org/tsmarsh/packager) 
-
+[![Coverage Status](https://coveralls.io/repos/tsmarsh/packager/badge.svg?branch=master&service=github)](https://coveralls.io/github/tsmarsh/packager?branch=master)
 [![Clojars Project](http://clojars.org/packager/latest-version.svg)](http://clojars.org/packager)
 
 # packager

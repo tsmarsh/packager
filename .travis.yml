@@ -1,3 +1,5 @@
 language: clojure
 notifications:
   slack: plaored:AUZ47hMWhEtoSaL48slVu8Tb
+after_success:
+  - bash publish_coverage.sh
