@@ -6,5 +6,5 @@
                  [prismatic/schema "0.4.3"]]
   :profiles {:dev
              {:dependencies [[org.clojure/test.check "0.7.0"]]}}
-  :plugins [[lein-cloverage "1.0.6"]
+  :plugins [[lein-cloverage "1.0.7-SNAPSHOT"]
             [lein-cljfmt "0.1.12"]])
